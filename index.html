@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SF State AI Agents Club</title>
+  <meta name="description" content="Student-run community exploring AI agents at SFSU." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Site Header / Navigation -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="SF State AI Agents Club home">
+        <span class="brand-logo" aria-hidden="true">🤖</span>
+        <span class="brand-text">SF State AI Agents Club</span>
+      </a>
+
+      <!-- Simple nav; add links as the site grows -->
+      <nav class="site-nav" role="navigation" aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
+          <span class="sr-only">Toggle navigation</span>
+          ☰
+        </button>
+        <ul id="navMenu" class="nav-list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <!-- Example future link: <li><a href="#events">Events</a></li> -->
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section id="home" class="hero" aria-label="Hero section">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1>Build, test, and ship AI agents — together.</h1>
+          <p class="lead">
+            Join a hands-on community at SFSU exploring autonomous agents, evaluations,
+            tools, and real-world deployments. Learn fast, share demos, and grow your portfolio.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#contact">Join the club</a>
+            <a class="btn ghost" href="#about">Learn more</a>
+          </div>
+        </div>
+
+        <!-- Hero art uses a background image set from scripts.js -->
+        <figure class="hero-art" role="img" aria-label="Illustration placeholder for AI agents"></figure>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="container grid-2">
+        <div>
+          <h2>About Us</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod,
+            metus sed tempor posuere, lorem nibh aliquam justo, vitae placerat justo lorem vel mi.
+            Aenean vitae semper lorem. Cras sed lacus ut neque porta eleifend. Integer faucibus
+            malesuada lorem, in tristique ipsum ultricies et.
+          </p>
+          <ul class="checklist">
+            <li>Weekly build nights and lightning talks</li>
+            <li>Project squads for agent demos and evals</li>
+            <li>Peer review + mentorship for portfolios</li>
+            <li>Industry speakers and hackathons</li>
+          </ul>
+        </div>
+        <aside class="card">
+          <h3>Quick Facts</h3>
+          <dl class="meta-list">
+            <dt>Campus</dt><dd>San Francisco State University</dd>
+            <dt>Focus</dt><dd>Agentic systems, tooling, evaluations</dd>
+            <dt>Experience</dt><dd>All levels welcome</dd>
+            <dt>Meeting Time</dt><dd>Thursdays @ 6pm (placeholder)</dd>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section section-accent">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <p class="muted">
+          Questions, collabs, or want to join? Fill out the form and we’ll reply soon.
+        </p>
+
+        <!-- Accessible form with client-side validation and async submit -->
+        <form id="contactForm" class="form card" novalidate>
+          <div class="field">
+            <label for="fullName">Full Name</label>
+            <input id="fullName" name="fullName" type="text" placeholder="Ada Lovelace" autocomplete="name" required />
+            <small class="error" id="fullNameError"></small>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@sfsu.edu" autocomplete="email" required />
+            <small class="error" id="emailError"></small>
+          </div>
+
+          <div class="field">
+            <label for="affiliation">Affiliation (optional)</label>
+            <input id="affiliation" name="affiliation" type="text" placeholder="SFSU student / alum / sponsor / other" />
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell us what you’re curious about…" required></textarea>
+            <small class="error" id="messageError"></small>
+          </div>
+
+          <div class="field-inline">
+            <label class="checkbox">
+              <input id="subscribe" name="subscribe" type="checkbox" />
+              <span>Subscribe to updates</span>
+            </label>
+          </div>
+
+          <button class="btn primary" type="submit">Send message</button>
+
+          <!-- Live region for status updates (screen-reader friendly) -->
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> SF State AI Agents Club</p>
+      <ul class="socials">
+        <li><a href="#" aria-label="Email">Email</a></li>
+        <li><a href="#" aria-label="Discord">Discord</a></li>
+        <li><a href="#" aria-label="GitHub">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="scripts.js" defer></script>
+</body>
+</html>
