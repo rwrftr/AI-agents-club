@@ -7,8 +7,8 @@
 -------------------------------------------------------------- */
 
 // ===== Image URL placeholders (swap these later) =====
-const HERO_IMAGE_URL = "assets/hero-placeholder.jpg";     // Replace with your image path or remote URL
-const ABOUT_IMAGE_URL = "assets/about-placeholder.jpg";   // If you decide to use one later
+const HERO_IMAGE_URL = "assets/hero-img.png";     
+const ABOUT_IMAGE_URL = "assets/about-placeholder.jpg";  
 
 // Apply hero image background once DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupNavToggle();
   setupSmoothScroll();
   setupContactForm();
+  setupCursorGlow();
 });
 
 /* ---------- Mobile nav toggle ---------- */
@@ -78,3 +79,74 @@ function setupContactForm(){
   };
 }
   // Replace this with your endpoint (Formspree/Netlify function/etc.)
+
+/* ---------- Cursor glow (follow pointer) ---------- */
+function setupCursorGlow(){
+  // Respect user preference for reduced motion
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const glow = document.createElement('div');
+  glow.className = 'cursor-glow';
+  glow.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(glow);
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let targetX = mouseX;
+  let targetY = mouseY;
+  let visible = false;
+  let lastMove = Date.now();
+
+  const lerp = (a, b, n) => (1 - n) * a + n * b;
+  const smoothing = prefersReduced ? 1 : 0.14; // higher = snappier when reduced-motion
+
+  function showAt(x, y){
+    targetX = x;
+    targetY = y;
+    lastMove = Date.now();
+    if(!visible){
+      visible = true;
+      glow.style.opacity = '1';
+    }
+  }
+
+  function hideGlow(){
+    visible = false;
+    glow.style.opacity = '0';
+  }
+
+  function onPointer(e){
+    const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+    const clientY = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+    showAt(clientX, clientY);
+  }
+
+  window.addEventListener('pointermove', onPointer, {passive:true});
+  window.addEventListener('pointerdown', onPointer, {passive:true});
+  window.addEventListener('pointerleave', hideGlow);
+  window.addEventListener('touchstart', onPointer, {passive:true});
+  window.addEventListener('touchmove', onPointer, {passive:true});
+  window.addEventListener('touchend', hideGlow);
+
+  function update(){
+    if(prefersReduced){
+      mouseX = targetX;
+      mouseY = targetY;
+    } else {
+      mouseX = lerp(mouseX, targetX, smoothing);
+      mouseY = lerp(mouseY, targetY, smoothing);
+    }
+
+    glow.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+
+    // Fade out when idle
+    const idle = Date.now() - lastMove;
+    if(idle > 1200) {
+      glow.style.opacity = '0';
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  requestAnimationFrame(update);
+}
